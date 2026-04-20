@@ -19,12 +19,12 @@ const Main = () => {
       <div className='flex flex-col w-full grow relative'>
         <div className='absolute mb-1 pb-2 left-0 top-0 right-0 bottom-0 p-3 flex overflow-x-scroll overflow-y-hidden'>
         <div className='mr-3 w-60 h-fit rounded-md p-2 bg-black shrink-0'>
-        <div class="list-body">
+        <div className="list-body">
           <div className='flex justify-between p-1 '>
             <span>To do</span>
             <button className='hover:bg-gray-500 px-2 py-1 h-8 rounded '><MoreHorizontal size={16}></MoreHorizontal></button>
           </div>
-            <div class="item flex justify-between items-center bg-zinc-700 p-1 cursor-pointer rounded-md border-2 border-zinc-900 hover:border-gray-500">
+            <div className="item flex justify-between items-center bg-zinc-700 p-1 cursor-pointer rounded-md border-2 border-zinc-900 hover:border-gray-500">
           <span >
               Project Description
             </span>
