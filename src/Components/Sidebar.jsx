@@ -1,17 +1,32 @@
-import React, { useContext, useState } from 'react'
+import React, { use, useContext, useState } from 'react'
 import { Popover } from 'react-tiny-popover'
 import { ChevronRight, ChevronLeft, Plus, X} from 'react-feather'
 import { BoardContext } from '../context/BoardContext'
 
 const Sidebar = () => {
+
+    const blanckBoard = {
+        name: "",
+        bgcolor: "#a396e9",
+        items: []
+    };
+    const [boardData, setBoardData] = useState(blanckBoard);
     const [collapsed, setCollapsed] = useState(false);
     const [isPopoverOpen, setIsPopoverOpen]= useState(false);
-    
+
     const {allboard, setAllBoard} = useContext(BoardContext)
     const setActiveBoard = (i) => {
         let newBoard = {...allboard}
         newBoard.active = i;
         setAllBoard(newBoard)
+    }
+
+    const addBoard = () => {
+        let newBoard = {...allboard};
+        newBoard.boards.push(boardData)
+        setBoardData(newBoard);
+        setBoardData(blanckBoard)
+        setIsPopoverOpen(!isPopoverOpen)
     }
 
   return (
@@ -46,12 +61,14 @@ const Sidebar = () => {
    <button className='absolute right-2 top-2 hover:bg-gray-500 p-1 rounded'><X size={16}></X></button>
    <h4 className='py-3'>Create board</h4>
    <img src= "https://placehold.co/200x120/png"></img>
+
    <div className="flex flex-col items-start mt-3 w-full">
     <label htmlFor="title">Board Tittle <span>*</span></label>
-    <input type="text" className="h-8 px-2 mt-2 w-full bg-gray-700"/>
+    <input type="text" value={boardData.name} onChange={(e) => {setBoardData({...boardData, name: e.target.value})}} className="h-8 px-2 mt-2 w-full bg-gray-700"/>
+
      <label htmlFor="Color">Board Color </label>
-    <input type="color" className="h-8 px-2 mt-2 w-full bg-gray-700"/>
-    <button className="w-full rounded h-8 bg-slate-700 mt-2  hover:bg-gray-500  ">Create</button>
+    <input type="color" value={boardData.bgcolor} onChange={(e) => {setBoardData({...boardData, bgcolor: e.target.value})}}  className="h-8 px-2 mt-2 w-full bg-gray-700"/>
+    <button onClick={() => {addBoard()}} className="w-full rounded h-8 bg-slate-700 mt-2  hover:bg-gray-500  ">Create</button>
    </div>
     </div>
 }
@@ -64,7 +81,7 @@ const Sidebar = () => {
         </div>
         <ul>
             {allboard.boards && allboard.boards.map((x, i) => {
-                return  <li>
+                return  <li key={i}>
                 <button onClick={() => setActiveBoard(i)} className='px-2 py-2 w-full -text-sm flex justify-start align-baseline hover:bg-slate-600'>
                     <span className='w-6 h-max rounded-sm mr-2 ' style={{ backgroundColor: `${x.bgcolor }`}}>&nbsp;</span>
                     <span>{x.name}</span>

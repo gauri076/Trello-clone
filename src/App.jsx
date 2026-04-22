@@ -12,22 +12,11 @@ const boardData = {
     {
       name: "My Trello Board",
       bgcolor: "#a396e9",
-      list:[
-        {id:"1", title: "to do", items:[
-          {id:"11", title: "task 1"},
-          {id:"12", title: "task 2"},
-          {id:"13", title: "task 3"},
-        ]},
-         {id:"2", title: "in progress", items:[
-          {id:"21", title: "task 4"},
-          {id:"22", title: "task 5"},
-          {id:"23", title: "task 6"},
-        ]},
-         {id:"3", title: "done", items:[
-          {id:"31", title: "task 1"},
-          {id:"32", title: "task 2"},
-          {id:"33", title: "task 3"},
-        ]},
+     list:[
+          {id:"1",title:"To do",items:[{id:"cdrFt",title:"Project Description 1"}]},
+          {id:"2",title:"In Progress",items:[{id:"cdrFv",title:"Project Description 2"}]},
+          {id:"3",title:"Done",items:[{id:"cdrFb",title:"Project Description 3"}]}
+        
       ]
     }
   ]
