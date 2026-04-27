@@ -10,15 +10,36 @@ const Main = () => {
   const bdata = allboard.boards[allboard.active]
 
   function onDragEnd(res) {
-    console.log("drag", res)
+    // console.log("drag", res)
+    if(!res.destination){
+      console.log("No Destination")
+      return;
+    }
+
+    const newList = [...bdata.list]
+    const s_id = parseInt(res.source.droppableId);
+    const d_id= parseInt(res.destination.droppableId);
+
+    const [removed]= newList[s_id - 1].items.splice(res.source.index, 1);
+    newList[d_id -1].items.splice(res.destination.index,0, removed);
+
+     let board_ = {...allboard};
+        board_.boards[board_.active].list = newList;
+        setAllBoard(board_);
   }
-  const cardData = (e) => {
+  const cardData = (e, ind) => {
     let newList = [...bdata.list];
+    newList[ind].items.push({id:'abcde', title:e})
+
+     let board_ = {...allboard};
+        board_.boards[board_.active].list = newList;
+        setAllBoard(board_);
+
   }
 
 
   return (
-    <div className='flex flex-col bg-slate-900 w-full'>
+    <div className='flex flex-col w-full' style={{backgroundColor: `${bdata.bgcolor}`}}>
       <div className='p-3 bg-black flex justify-between w-full bg-opacity-50'>
         <h2 className='text-lg'>{bdata.name}</h2>
         <div className='flex items-center justify-center'>
@@ -77,7 +98,7 @@ return  <div key={ind} className='mr-3 w-60 h-fit rounded-md p-2 bg-black shrink
 </Droppable>
          
           
-        <CardAdd getcard={(e) => cardData(e)} ></CardAdd>
+        <CardAdd getcard={(e) => cardData(e, ind)} ></CardAdd>
         </div>
         </div>
           })}
