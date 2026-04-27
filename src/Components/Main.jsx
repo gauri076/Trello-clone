@@ -3,6 +3,8 @@ import { MoreHorizontal, UserPlus, Edit2 } from 'react-feather'
 import CardAdd from './CardAdd'
 import { BoardContext } from '../context/BoardContext'
 import { DragDropContext, Draggable,Droppable } from '@hello-pangea/dnd'
+import AddList from "./AddList"
+import Utils from "../utils/Utils"
 
 const Main = () => {
 
@@ -29,7 +31,19 @@ const Main = () => {
   }
   const cardData = (e, ind) => {
     let newList = [...bdata.list];
-    newList[ind].items.push({id:'abcde', title:e})
+    newList[ind].items.push({id:Utils.makeid(5), title:e})
+
+     let board_ = {...allboard};
+        board_.boards[board_.active].list = newList;
+        setAllBoard(board_);
+
+  }
+
+   const listData = (e) => {
+    let newList = [...bdata.list];
+    newList.push(
+      {id:newList.length + 1 + '', title:e, items: []}
+    )
 
      let board_ = {...allboard};
         board_.boards[board_.active].list = newList;
@@ -43,7 +57,7 @@ const Main = () => {
       <div className='p-3 bg-black flex justify-between w-full bg-opacity-50'>
         <h2 className='text-lg'>{bdata.name}</h2>
         <div className='flex items-center justify-center'>
-          <button className='bg-gray-200 text-gray-500 px-2 py-1 mr-2 rounded flex justify-center items-center h-8'>
+          <button className='bg-gray-200 text-gray-800 px-2 py-1 mr-2 rounded flex justify-center items-center h-8'>
             <UserPlus size={16} className='mr-2'></UserPlus>
             Share
           </button>
@@ -105,7 +119,7 @@ return  <div key={ind} className='mr-3 w-60 h-fit rounded-md p-2 bg-black shrink
           </DragDropContext>
 
 
-      
+      <AddList getlist={(e) => {listData(e)}}> </AddList>
        
 
         </div>

@@ -8,7 +8,7 @@ const Sidebar = () => {
     const blanckBoard = {
         name: "",
         bgcolor: "#a396e9",
-        items: []
+        list: []
     };
     const [boardData, setBoardData] = useState(blanckBoard);
     const [collapsed, setCollapsed] = useState(false);
